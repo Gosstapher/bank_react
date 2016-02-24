@@ -5,7 +5,7 @@ var AccountsList = React.createClass({
   
   render: function(){
     var accounts = this.props.filteredAccounts.map(function(account,index){
-      return <li key={index}> {account.owner} : £{account.amount}</li>
+      return <li key={index}> {account.owner} : £{account.amount}  {account.details}</li>
     });
     
     return (

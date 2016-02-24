@@ -221,23 +221,28 @@
 	module.exports = [
 	  { "owner": "jay",
 	    "amount": 125.50,
-	    "type": "personal"
+	    "type": "personal",
+	    "details": []
 	  },
 	  { "owner": "val",
 	    "amount": 55125.10,
-	    "type": "personal"
+	    "type": "personal",
+	    "details": ["pokemon pays suspiciously well"]
 	  },
 	  { "owner": "marc",
 	    "amount": 400.00,
-	    "type": "personal"
+	    "type": "personal",
+	    "details": []
 	  },
 	  { "owner": "keith",
 	    "amount": 220.25,
-	    "type": "business"
+	    "type": "business",
+	    "details": []
 	  },
 	  { "owner": "rick",
 	    "amount": 100000.00,
-	    "type": "business"
+	    "type": "business",
+	    "details": ["hacked"]
 	  }
 	]
 
@@ -19977,7 +19982,9 @@
 	        ' ',
 	        account.owner,
 	        ' : £',
-	        account.amount
+	        account.amount,
+	        '  ',
+	        account.details
 	      );
 	    });
 	
