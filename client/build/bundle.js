@@ -19850,18 +19850,17 @@
 	
 	var React = __webpack_require__(4);
 	var sampleAccounts = __webpack_require__(3);
-	
+	var AccountBox = __webpack_require__(163);
 	var Bank = __webpack_require__(1);
 	
 	var BankBox = React.createClass({
 	  displayName: 'BankBox',
 	
 	  getInitialState: function getInitialState() {
-	    return { accounts: sampleAccounts };
+	    return { accounts: sampleAccounts, bank: null };
 	  },
 	
-	  render: function render() {
-	
+	  setUpBank: function setUpBank() {
 	    var bank = new Bank();
 	
 	    var _iteratorNormalCompletion = true;
@@ -19889,6 +19888,14 @@
 	      }
 	    }
 	
+	    this.setState({ bank: bank });
+	  },
+	
+	  componentWillMount: function componentWillMount() {
+	    this.setUpBank();
+	  },
+	
+	  render: function render() {
 	    return React.createElement(
 	      'div',
 	      null,
@@ -19901,14 +19908,93 @@
 	        'h2',
 	        null,
 	        'Total: £',
-	        bank.totalCash(),
+	        this.state.bank.totalCash(),
 	        ' '
-	      )
+	      ),
+	      React.createElement(AccountBox, { bank: this.state.bank })
 	    );
 	  }
 	});
 	
 	module.exports = BankBox;
+
+/***/ },
+/* 163 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(4);
+	var Bank = __webpack_require__(1);
+	var AccountsList = __webpack_require__(164);
+	
+	var AccountBox = React.createClass({
+	  displayName: 'AccountBox',
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Total cash in business accounts: £',
+	        this.props.bank.totalCash('business')
+	      ),
+	      React.createElement(AccountsList, { filteredAccounts: this.props.bank.filteredAccounts('business') }),
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Total cash in personal accounts: £',
+	        this.props.bank.totalCash('personal')
+	      ),
+	      React.createElement(AccountsList, { filteredAccounts: this.props.bank.filteredAccounts('personal') })
+	    );
+	  }
+	
+	});
+	
+	module.exports = AccountBox;
+
+/***/ },
+/* 164 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(4);
+	var Bank = __webpack_require__(1);
+	
+	var AccountsList = React.createClass({
+	  displayName: 'AccountsList',
+	
+	
+	  render: function render() {
+	    var accounts = this.props.filteredAccounts.map(function (account, index) {
+	      return React.createElement(
+	        'li',
+	        { key: index },
+	        ' ',
+	        account.owner,
+	        ' : £',
+	        account.amount
+	      );
+	    });
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'ul',
+	        null,
+	        accounts
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = AccountsList;
 
 /***/ }
 /******/ ]);
